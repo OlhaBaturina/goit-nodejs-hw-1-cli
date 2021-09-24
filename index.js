@@ -30,6 +30,12 @@ function invokeAction({ action, id, name, email, phone }) {
 
     case 'add':
       // ... name email phone
+      addContact(name, email, phone)
+      .then(contact => {
+        console.log(chalk.yellowBright('New contact'))
+        console.log(contact)
+      })
+      .catch(console.error)
       break;
 
     case 'remove':

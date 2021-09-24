@@ -9,7 +9,7 @@ const contactsPath = path.join(__dirname, '/db', '/contacts.json');
 const readFile = async () => {
     try{
          const result = await fs.readFile(
-           path.join(contactsPath),
+         contactsPath,
           'utf8',
           );
     const contacts  = JSON.parse(result);
@@ -37,8 +37,15 @@ function listContacts() {
     // ...твой код
   }
   
-  function addContact(name, email, phone) {
+  async function addContact(name, email, phone) {
     // ...твой код
+const contacts = await readFile();
+const newContact = { id: crypto.randomUUID(), name, email, phone}
+contacts.push(newContact);
+await fs.writeFile((contactsPath),
+JSON.stringify(contacts),
+);
+return newContact
   }
 
   module.exports = {
