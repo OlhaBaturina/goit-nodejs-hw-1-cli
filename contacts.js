@@ -44,12 +44,13 @@ return result
     const idx = contacts.indexOf(deleteContact);
    
     const [result] = contacts.slice(idx);
+    const data = contacts.filter(contact => contact !==result)
 
     await fs.writeFile((contactsPath),
-    JSON.stringify(contacts),
+    JSON.stringify(data),
     );
 console.log(chalk.red('Delete contact:', result.name))
-    return contacts
+    return data;
   }
   
   async function addContact(name, email, phone) {
