@@ -2,6 +2,7 @@ const fs = require('fs/promises');
 const path = require('path')
 const crypto = require('crypto');
 const { readSync } = require('fs');
+const chalk = require('chalk');
 
 const contactsPath = path.join(__dirname, '/db', '/contacts.json');
 
@@ -29,12 +30,26 @@ function listContacts() {
     
   }
   
-  function getContactById(contactId) {
+ async function getContactById(contactId) {
     // ...твой код
+    const contacts = await readFile();
+const [result] = contacts.filter(contact => contact.id === contactId);
+return result
   }
   
-  function removeContact(contactId) {
+  async function removeContact(contactId) {
     // ...твой код
+    const contacts = await readFile();
+    const deleteContact = contacts.find(contact => contact.id === contactId);
+    const idx = contacts.indexOf(deleteContact);
+   
+    const [result] = contacts.slice(idx);
+
+    await fs.writeFile((contactsPath),
+    JSON.stringify(contacts),
+    );
+console.log(chalk.red('Delete contact:', result.name))
+    return contacts
   }
   
   async function addContact(name, email, phone) {

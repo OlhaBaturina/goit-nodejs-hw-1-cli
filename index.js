@@ -26,6 +26,18 @@ function invokeAction({ action, id, name, email, phone }) {
 
     case 'get':
       // ... id
+      getContactById(id)
+      .then(contact => {
+        if (contact) {
+          console.log(chalk.greenBright('Contact by ID'));
+          console.log(contact)
+        } else{
+          console.log(chalk.redBright('Contact not found'));
+        }
+        
+        
+      })
+      .catch(console.error)
       break;
 
     case 'add':
@@ -40,6 +52,17 @@ function invokeAction({ action, id, name, email, phone }) {
 
     case 'remove':
       // ... id
+      removeContact(id)
+      .then(contact => {
+        if (contact) {
+          console.log(chalk.greenBright('Contacts'));
+          console.log(contact)
+        } else{
+          console.log(chalk.redBright('Contact not found'));
+        }
+      }
+      )
+      .catch(console.error)
       break;
 
     default:
